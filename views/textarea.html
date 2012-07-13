@@ -1,4 +1,28 @@
-<script type="text/javascript" src="/media/plugins/xheditor/xheditor-1.1.12-zh-cn.min.js"></script>
-
-<textarea name="{% if name then %}{{name}}{% else %}xhcontent{% end %}" class="{{class_config}}">{{default_value}}</textarea>
+<script type="text/javascript" src="/media/plugins/xheditor/xheditor-1.1.14-zh-cn-lg.js"></script>
+<script>
+$(document).ready(function () {
+	var wwidth = 600;
+	var wheight = 300;
+	var wtools = 'Paste,Pastetext,|,Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,Removeformat,|,Align,List,Outdent,Indent,|,Table,Link,Unlink,Img,Emot,|,Preview,Fullscreen';
+	var wcss = '<style>body{font-size:14px;}</style>';
+	
+	$('textarea.textarea_plugin').xheditor({
+		forcePtag: false, 
+		width: wwidth, 
+		height: wheight, 
+		tools: wtools, 
+		loadCSS: wcss,
+		editorRoot:'/media/plugins/xheditor/',
+		html5Upload: true,
+		upImgUrl:"/plugin/xheditor/photo/?immediate=1",
+		upImgExt:"jpg,jpeg,gif,png",
+		onUpload: function (data) {
+			//alert(data[0]);
+			return false;
+		}
+	});
+	
+});
+</script>
+<textarea class="textarea_plugin" name="{% if name then %}{{name}}{% else %}content{% end %}"></textarea>
 

@@ -14,26 +14,45 @@ class="xheditor {skin:'default'}"
 
 
 --]]
-
-function main(args, env)
-	local class_config = "xheditor "
-	if args.class and type(args.class) == 'string' then
-		class_config = args.class .. ' ' .. class_config 
+require 'gd'
+function guessPhotoFormat(path)
+	local im_src = gd.createFromJpeg(path)
+	if not im_src then
+		im_src = gd.createFromPng(path)
 	end
-	if args.config and type(args.config) == 'string' then
-		class_config = class_config .. args.config
+	if not im_src then
+		im_src = gd.createFromGif(path)
 	end
-	local default_value = args.value or ''
 	
-	local tmpl = 'basic'
-	return View(TMPLS[tmpl]){ class_config=class_config, name=args.name, default_value = default_value }
-
+	return im_src
 end
 
+function xheditorPhoto(web, req)
+	local Image = require 'bamboo.models.image'
+	bamboo.registerModel(Image)
+	local newfile, result_type = Image:process(web, req, '/xheditor/')
+	
+	-- 新上传的图片，在process里面，只保存Upload的几个基本属性，在这里，可以计算一下它的宽和高，再手动保存一次
+	-- 但要计算宽高就要使用gd库将其读出
+	local im_src = guessPhotoFormat(newfile.path)
+	local x, y = im_src:sizeXY()
+	newfile.width = x
+	newfile.height = y
+	newfile:save()
 
-URLS = {
-	-- ['/register/'] = register,  -- put register view customized in handler_entry.lua
-	--['/' + urlprefix + '/postcomment/'] = postComment,
+	
+	if req.ajax then
+		-- 让图片选择后立即上传到编辑器中去
+        web:json {err="", msg = '!/' + newfile.path}
+    end
+	
+	
+end
 
-}
+function main(args, env)
+	local tmpl = 'basic'
+	bamboo.URLS['/plugin/xheditor/photo/'] = xheditorPhoto
+	return View(TMPLS[tmpl]){name=args.name}
+
+end
 
