@@ -1,12 +1,13 @@
-<script type="text/javascript" src="/media/plugins/xheditor/xheditor-1.1.14-zh-cn-lg.js"></script>
+<script type="text/javascript" src="/media/plugins/xheditor/xheditor-1.1.14-zh-cn-lg.min.js"></script>
 <script>
 $(document).ready(function () {
-	var wwidth = 600;
-	var wheight = 300;
-	var wtools = 'Paste,Pastetext,|,Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,Removeformat,|,Align,List,Outdent,Indent,|,Table,Link,Unlink,Img,Emot,|,Preview,Fullscreen';
-	var wcss = '<style>body{font-size:14px;}</style>';
+	var wwidth = {{width or 600}};
+	var wheight = {{height or 300}};
+	var wtools = {{tools or 'Paste,Pastetext,|,Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,Removeformat,|,Align,List,Outdent,Indent,|,Table,Link,Unlink,Img,Emot,|,Preview,Fullscreen'}};
+	var wcss = {{css or '<style>body{font-size:14px;}</style>'}};
+	var imgexts = {{imgexts or "jpg,jpeg,gif,png"}};
 	
-	$('textarea.textarea_plugin').xheditor({
+	$('textarea.xheditor_plugin').xheditor({
 		forcePtag: false, 
 		width: wwidth, 
 		height: wheight, 
@@ -15,7 +16,7 @@ $(document).ready(function () {
 		editorRoot:'/media/plugins/xheditor/',
 		html5Upload: true,
 		upImgUrl:"/plugin/xheditor/photo/?immediate=1",
-		upImgExt:"jpg,jpeg,gif,png",
+		upImgExt: imgexts,
 		onUpload: function (data) {
 			//alert(data[0]);
 			return false;
@@ -24,5 +25,5 @@ $(document).ready(function () {
 	
 });
 </script>
-<textarea class="textarea_plugin" name="{% if name then %}{{name}}{% else %}content{% end %}"></textarea>
+<textarea class="xheditor_plugin" name="{% if name then %}{{name}}{% else %}content{% end %}"></textarea>
 

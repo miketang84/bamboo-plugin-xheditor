@@ -9,8 +9,14 @@ local TMPLS = {
 
 
 --[[
-class="xheditor {skin:'default'}"
-{^ xheditor config="{tools: 'mini', skin: 'default',  }"    ^}
+{^ xheditor _tag='xxx',
+
+width=600,
+height=300,
+tools = 'full','mfull','simple','mini','或自定义值',
+css = '自定义css',
+
+^}
 
 
 --]]
