@@ -3,9 +3,9 @@
 $(document).ready(function () {
 	var wwidth = {{width or 600}};
 	var wheight = {{height or 300}};
-	var wtools = {{tools or 'Paste,Pastetext,|,Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,Removeformat,|,Align,List,Outdent,Indent,|,Table,Link,Unlink,Img,Emot,|,Preview,Fullscreen'}};
-	var wcss = {{css or '<style>body{font-size:14px;}</style>'}};
-	var imgexts = {{imgexts or "jpg,jpeg,gif,png"}};
+	var wtools = '{{tools or 'Paste,Pastetext,|,Blocktag,Fontface,FontSize,|,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,Removeformat,|,Align,List,Outdent,Indent,|,Table,Link,Unlink,Img,Emot,|,Preview,Fullscreen'}}';
+	var wcss = '{{css or '<style>body{font-size:14px;}</style>'}}';
+	var imgexts = '{{imgexts or "jpg,jpeg,gif,png"}}';
 	
 	$('textarea.xheditor_plugin').xheditor({
 		forcePtag: false, 

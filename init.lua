@@ -15,6 +15,7 @@ width=600,
 height=300,
 tools = 'full','mfull','simple','mini','或自定义值',
 css = '自定义css',
+imgexts = 'ffff'
 
 ^}
 
