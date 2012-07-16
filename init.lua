@@ -59,7 +59,7 @@ end
 function main(args, env)
 	local tmpl = 'basic'
 	bamboo.URLS['/plugin/xheditor/photo/'] = xheditorPhoto
-	return View(TMPLS[tmpl]){name=args.name}
+	return View(TMPLS[tmpl])(args)
 
 end
 
